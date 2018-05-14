@@ -16,6 +16,9 @@ import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 import { PagesComponent } from './pages/pages.component';
 import { RegisterComponent } from './login/register.component';
+import { TRANSLATION_PROVIDERS } from './translate/translation';
+import { TranslatePipe } from './translate/translate.pipe';
+import { TranslateService } from './translate/translate.service';
 
 
 
@@ -31,12 +34,13 @@ import { RegisterComponent } from './login/register.component';
     SidebarComponent,
     BreadcrumbsComponent,
     PagesComponent,
-    RegisterComponent
+    RegisterComponent,
+    TranslatePipe
   ],
   imports: [
     BrowserModule, APP_ROUTES
   ],
-  providers: [],
+  providers: [TRANSLATION_PROVIDERS, TranslateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
