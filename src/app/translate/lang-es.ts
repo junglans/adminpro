@@ -12,6 +12,6 @@ export const LANG_ES_TRANS =  {
     'text.agree.with': 'Estoy de acuerdo con los',
     'text.terms': 'términos.',
     'text.do.you.have.an.account': '¿Dispones de una cuenta?',
-    'text.log.in': 'Ingresar'
+    'text.log.in': 'Ingresar',
 )
 
