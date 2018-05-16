@@ -11,6 +11,8 @@ import { RegisterComponent } from './login/register.component';
 import { PagesModule } from './pages/pages.module';
 import { TranslateModule } from './translate/translate.module';
 
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -20,7 +22,7 @@ import { TranslateModule } from './translate/translate.module';
     RegisterComponent
   ],
   imports: [
-    BrowserModule, APP_ROUTES, PagesModule, TranslateModule
+    BrowserModule, APP_ROUTES, PagesModule, TranslateModule, FormsModule
   ],
   bootstrap: [AppComponent]
 })
