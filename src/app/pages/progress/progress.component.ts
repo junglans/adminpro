@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProgressComponent implements OnInit {
 
-  progress: number = 50;
+  progress1: number = 20;
+  progress2: number = 30;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public changeProgress1(event: number) {
+    this.progress1 = event;
+  }
+  public changeProgress2(event: number) {
+    this.progress2 = event;
   }
 }
