@@ -1,3 +1,40 @@
-<p>
-  graficas1 works!
-</p>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div style="display: block">
+                    <app-donughtgraph [legend]="graficos.grafico1.leyenda" [data]="graficos.grafico1.data" [labels]="graficos.grafico1.labels"></app-donughtgraph>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div style="display: block">
+                    <app-donughtgraph [legend]="graficos.grafico2.leyenda" [data]="graficos.grafico2.data" [labels]="graficos.grafico2.labels"></app-donughtgraph>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div style="display: block">
+                    <app-donughtgraph [legend]="graficos.grafico3.leyenda" [data]="graficos.grafico3.data" [labels]="graficos.grafico3.labels"></app-donughtgraph>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div style="display: block">
+                    <app-donughtgraph [legend]="graficos.grafico4.leyenda" [data]="graficos.grafico4.data" [labels]="graficos.grafico4.labels"></app-donughtgraph>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
