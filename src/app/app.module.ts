@@ -13,6 +13,9 @@ import { TranslateModule } from './translate/translate.module';
 import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 
+// Services
+import { SettingsService } from './services/settings.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +25,7 @@ import { ChartsModule } from 'ng2-charts';
   imports: [
     BrowserModule, APP_ROUTES, PagesModule, TranslateModule, FormsModule, ChartsModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [SettingsService]
 })
 export class AppModule { }

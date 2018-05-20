@@ -15,6 +15,7 @@ import { ProgressComponent } from './progress/progress.component';
 import { TranslateModule } from '../translate/translate.module';
 import { IncrementerComponent } from '../components/incrementer/incrementer.component';
 import { DonughtGraphComponent } from '../components/donughtgraph/donughtgraph.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { DonughtGraphComponent } from '../components/donughtgraph/donughtgraph.c
         Graficas1Component,
         ProgressComponent,
         IncrementerComponent,
-        DonughtGraphComponent
+        DonughtGraphComponent,
+        AccountSettingsComponent
     ],
     exports: [
         DashboardComponent,
