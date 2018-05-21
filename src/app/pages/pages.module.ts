@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PAGES_ROUTES } from './pages.routes';
-
+ 
 // ng2-charts
 import { ChartsModule } from 'ng2-charts';
 
@@ -16,6 +16,8 @@ import { TranslateModule } from '../translate/translate.module';
 import { IncrementerComponent } from '../components/incrementer/incrementer.component';
 import { DonughtGraphComponent } from '../components/donughtgraph/donughtgraph.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { CommonModule } from '@angular/common';
+
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
         ProgressComponent
     ],
     imports: [
-        SharedModule, PAGES_ROUTES, TranslateModule, FormsModule, ChartsModule
+        CommonModule, SharedModule, PAGES_ROUTES, TranslateModule,
+        FormsModule, ChartsModule
     ]
 })
 

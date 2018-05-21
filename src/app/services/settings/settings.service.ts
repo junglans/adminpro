@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Injectable()
 export class SettingsService {
@@ -10,7 +11,7 @@ export class SettingsService {
 
   private settings: Settings = this.DEFAULT;
 
-  constructor() {}
+  constructor(@Inject(DOCUMENT) private _document) {}
 
   public saveThemeSettings(theme: string, themeUrl: string): void {
 
@@ -20,14 +21,24 @@ export class SettingsService {
 
   }
 
-  public loadThemeSettings(): any {
+  public loadThemeSettings(): void {
 
       if (localStorage.getItem('theme')) {
         this.settings = JSON.parse(localStorage.getItem('theme'));
       } else {
         this.settings = this.DEFAULT;
       }
-      return { theme: this.settings.theme, themeUrl: this.settings.themeUrl};
+
+      this._document.getElementById('theme').setAttribute('href',  this.settings.themeUrl);
+
+      const selectores: any = this._document.getElementsByClassName('selector');
+      for (const item of selectores) {
+          item.classList.remove('working');
+          if (item.getAttribute('data-theme') ===  this.settings.theme) {
+            item.classList.add('working');
+            break;
+          }
+      }
 
   }
 }
@@ -35,4 +46,4 @@ export class SettingsService {
 interface Settings {
   themeUrl: string;
   theme: string;
-};
+}

@@ -36,16 +36,7 @@ export class AccountSettingsComponent implements OnInit {
 
   private initCheck(): void {
 
-    const themeSettings: any = this._settings.loadThemeSettings();
-    this._document.getElementById('theme').setAttribute('href', themeSettings.themeUrl);
+     this._settings.loadThemeSettings();
 
-    const selectores: any = this._document.getElementsByClassName('selector');
-    for (const item of selectores) {
-        item.classList.remove('working');
-        if (item.getAttribute('data-theme') === themeSettings.theme) {
-          item.classList.add('working');
-          break;
-        }
-    }
   }
 }
