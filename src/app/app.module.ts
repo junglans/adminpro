@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 
 // Services
-import { SettingsService } from './services/settings.service';
+import { ServiceModule } from './services/service.module';
 
 @NgModule({
   declarations: [
@@ -23,9 +23,10 @@ import { SettingsService } from './services/settings.service';
     RegisterComponent
   ],
   imports: [
-    BrowserModule, APP_ROUTES, PagesModule, TranslateModule, FormsModule, ChartsModule
+    BrowserModule, APP_ROUTES, PagesModule, TranslateModule, FormsModule,
+     ChartsModule, ServiceModule
   ],
   bootstrap: [AppComponent],
-  providers: [SettingsService]
+  providers: []
 })
 export class AppModule { }
