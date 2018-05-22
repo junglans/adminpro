@@ -17,6 +17,8 @@ import { IncrementerComponent } from '../components/incrementer/incrementer.comp
 import { DonughtGraphComponent } from '../components/donughtgraph/donughtgraph.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { CommonModule } from '@angular/common';
+import { PromisesComponent } from './promises/promises.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 
 
@@ -28,7 +30,9 @@ import { CommonModule } from '@angular/common';
         ProgressComponent,
         IncrementerComponent,
         DonughtGraphComponent,
-        AccountSettingsComponent
+        AccountSettingsComponent,
+        PromisesComponent,
+        RxjsComponent
     ],
     exports: [
         DashboardComponent,

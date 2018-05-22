@@ -26,6 +26,18 @@ export class SidebarService {
           icon: '',
           url: '/progress',
           submenus: []
+        },
+        {
+          title: 'Promesas',
+          icon: '',
+          url: '/promises',
+          submenus: []
+        },
+        {
+          title: 'Rxjs',
+          icon: '',
+          url: '/rxjs',
+          submenus: []
         }
       ]
     }]
