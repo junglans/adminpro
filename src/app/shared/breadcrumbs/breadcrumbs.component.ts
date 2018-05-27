@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivationEnd } from '@angular/router';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
- 
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -32,9 +32,10 @@ export class BreadcrumbsComponent implements OnInit {
 
   public getDataRoute() {
     return this.router.events
-    .filter( event => event instanceof ActivationEnd)
-    .filter( (event: ActivationEnd) =>  event.snapshot.firstChild === null )
-    .map ((event: ActivationEnd) => event.snapshot.data );
+    .pipe(
+      filter( event => event instanceof ActivationEnd),
+      filter( (event: ActivationEnd) =>  event.snapshot.firstChild === null ),
+      map ((event: ActivationEnd) => event.snapshot.data ));
   }
 
 

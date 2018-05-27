@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-// tslint:disable-next-line:import-blacklist
-import { Observable, Subscription } from 'rxjs/Rx';
+import { Component, OnInit, OnDestroy, Pipe } from '@angular/core';
+import { retry, map, filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { Observable } from 'rxjs/internal/Observable';
 
 
 @Component({
@@ -64,16 +65,18 @@ export class RxjsComponent implements OnInit, OnDestroy {
           , 1000);
 
       }
-    )
-    .retry(2)
-    // tslint:disable-next-line:arrow-return-shorthand
-    .map( (resp: any) => { return resp.valor; })
-    // tslint:disable-next-line:arrow-return-shorthand
-    .filter( (value: number) => { return value % 2 === 0; });
+    ).pipe(
+      retry(2),
+      map(resp => resp.valor),
+      filter( (val, index) => {
+        // console.log('Item', val, index);
+        return val % 2 === 0; // solamente nos interesan los valores pares.
+      })
+    );
   }
 
   ngOnDestroy(): void {
-     console.log('La página de va a cerrar.');
+     console.log('La página se va a cerrar.');
      this.sucriber.unsubscribe();
   }
 }
