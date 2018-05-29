@@ -10,7 +10,7 @@ import { RegisterComponent } from './login/register.component';
 import { PagesModule } from './pages/pages.module';
 import { TranslateModule } from './translate/translate.module';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 
 // Services
@@ -23,7 +23,7 @@ import { ServiceModule } from './services/service.module';
     RegisterComponent
   ],
   imports: [
-    BrowserModule, APP_ROUTES, PagesModule, TranslateModule, FormsModule,
+    BrowserModule, APP_ROUTES, PagesModule, TranslateModule, FormsModule, ReactiveFormsModule,
      ChartsModule, ServiceModule
   ],
   bootstrap: [AppComponent],
