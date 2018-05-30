@@ -2,24 +2,35 @@ import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
 
 import { SERVICE_URL } from '../../config/config';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
+import { Login } from '../../models/login.model';
 
 @Injectable()
 export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public crearUsuario(user: User): Observable<any> {
+  public crearUser(user: User): Observable<any> {
 
       const url = SERVICE_URL + '/user';
       return this.http.request(new HttpRequest('POST', url, user))
       .pipe(
+          filter( (response: any) => response instanceof HttpResponse ),
           map((response: any) => {
-            return response.user;
+              return response.body;
           })
       );
+  }
 
+  public login(login: Login): Observable<any> {
+    const url = SERVICE_URL + '/login';
+    return this.http.request(new HttpRequest('POST', url, login)).pipe(
+        filter( (response: any) => response instanceof HttpResponse ),
+        map((response: any) => {
+            return response.body;
+        })
+    );
   }
 }

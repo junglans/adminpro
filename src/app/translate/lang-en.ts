@@ -1,7 +1,7 @@
 export const LANG_EN_NAME = 'en';
 
 export const LANG_EN_TRANS =  {
-    'placeholder.username': 'Username',
+    'placeholder.username': 'Name',
     'placeholder.password': 'Password',
     'placeholder.confirm.password': 'Confirm password',
     'text.dont.have.an.account': 'Don\'t you hava an account yet?',

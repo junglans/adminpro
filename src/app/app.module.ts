@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { PagesModule } from './pages/pages.module';
 import { TranslateModule } from './translate/translate.module';
-
+// Se usa FormsModule para template-driven forms y ReactiveFormsModule para formularios reactivos.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 

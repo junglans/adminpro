@@ -14,7 +14,7 @@
                             <div *ngIf="formGroup.controls['name'].hasError('required')">
                                 <p class="text-danger">El nombre es un campo obligatorio</p>.
                             </div>
-                            <div *ngIf="formGroup.controls['name'].hasError('maxLength')">
+                            <div *ngIf="formGroup.controls['name'].hasError('minlength')">
                                 <p class="text-danger">La longitud de del nombre debe tener al menos 10 caracteres.</p>.
                             </div>
                         </div>

@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
 
     this.formGroup = new FormGroup({
 
-        name: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
+        name: new FormControl(null, [Validators.required, Validators.minLength(10)]),
         email: new FormControl(null, [Validators.required, Validators.email]),
         password: new FormControl(null, [Validators.required, Validators.minLength(10)]),
         confirmPassword: new FormControl(null, Validators.required),
@@ -44,14 +44,17 @@ export class RegisterComponent implements OnInit {
        this.formGroup.value.email,
        this.formGroup.value.password
      );
-     this._userService.crearUsuario(user).subscribe(
+     this._userService.crearUser(user).subscribe(
          (resp) => {
-             console.log(resp);
-             // swal('Usuario creado!!', resp.email, 'success');
-            // this._router.navigate(['/login']);
+            if (resp) {
+                swal({title: 'Usuario creado!!', text: resp.email, icon: 'success'})
+                .then( () => this._router.navigate(['/login']));
+            }
           },
          (error) => {
-          console.error('Error:' , error);
+          swal({title: 'Error creando el usuario',
+                text: error.error.errors.message,
+                icon: 'error'});
           },
           () => {
             console.log('Termino la observación');
