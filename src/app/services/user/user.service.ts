@@ -33,4 +33,30 @@ export class UserService {
         })
     );
   }
+
+  public loginGoogle(token: string): Observable<any> {
+    const url = SERVICE_URL + '/login/google';
+    return this.http.request(new HttpRequest('POST', url , { token })).pipe(
+        filter( (response: any) => response instanceof HttpResponse ),
+        map((response: any) => {
+            return response.body;
+        })
+    );
+  }
+
+
+  public logout(): Observable<boolean> {
+
+    localStorage.removeItem('id');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    // suponemos que el logout puede ser más costoso, por ejemplo acceder a la BD.
+    // Implementamos el método para devolver un Observable.
+    return new Observable<boolean>(
+        (observer) => {
+            observer.next(true);
+        }
+    );
+  }
 }
