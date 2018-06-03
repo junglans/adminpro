@@ -19,6 +19,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { CommonModule } from '@angular/common';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 
@@ -41,7 +42,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     ],
     imports: [
         CommonModule, SharedModule, PAGES_ROUTES, TranslateModule,
-        FormsModule, ChartsModule
+        FormsModule, ChartsModule, PipesModule
     ]
 })
 
