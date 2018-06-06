@@ -49,7 +49,11 @@ export class UserService {
 
     localStorage.removeItem('id');
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
+
+    const remember:boolean = JSON.parse(localStorage.getItem('remember')) || false;
+    if (!remember) {
+         localStorage.removeItem('user');
+    }
 
     // suponemos que el logout puede ser más costoso, por ejemplo acceder a la BD.
     // Implementamos el método para devolver un Observable.

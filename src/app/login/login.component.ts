@@ -88,15 +88,15 @@ export class LoginComponent implements OnInit {
    * Se recupera el email del local storage para autocompletar el formulario de login.
    */
   private readEMailFromLocalStorage(): void {
+      this.remember = JSON.parse(localStorage.getItem('remember')) || null;
       const user: User = JSON.parse(localStorage.getItem('user')) || null;
-      if (user) {
+
+      if (user && this.remember) {
         this.login.email = user.email;
       } else {
         this.login.email = '';
       }
-      if (this.login.email.length !== 0) {
-          this.remember = true;
-      }
+
   }
 
 
@@ -104,10 +104,8 @@ export class LoginComponent implements OnInit {
 
         localStorage.setItem('id', response.user._id);
         localStorage.setItem('token', response.token);
-        if (this.remember) {
-           localStorage.setItem('user', JSON.stringify(response.user));
-        } else {
-           localStorage.removeItem('user');
-        }
+        localStorage.setItem('user', JSON.stringify(response.user));
+        localStorage.setItem('remember', JSON.stringify(this.remember));
+
   }
 }

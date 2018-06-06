@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/service.index';
 import { Router } from '@angular/router';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,14 @@ export class HeaderComponent implements OnInit {
 
   constructor(private _router: Router, private _userService: UserService) { }
 
+  user: User;
+
   ngOnInit() {
+    this.loadUserInfo();
+  }
+
+  private loadUserInfo() {
+    this.user =  JSON.parse(localStorage.getItem('user'));
   }
 
   public logout() {
