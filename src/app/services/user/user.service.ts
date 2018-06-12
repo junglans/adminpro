@@ -6,11 +6,18 @@ import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { filter, map } from 'rxjs/operators';
 import { Login } from '../../models/login.model';
+import { Subject } from 'rxjs/internal/Subject';
 
 @Injectable()
 export class UserService {
 
+  // Por medio de este observable se notifica que el usuario se ha modificado.
+  private subject = new Subject<any>();
   constructor(private http: HttpClient) { }
+
+  public getSubject(): Observable<any> {
+      return this.subject.asObservable();
+  }
 
   public crearUser(user: User): Observable<any> {
 
@@ -33,7 +40,7 @@ export class UserService {
     return this.http.request(new HttpRequest('PUT', url, user)).pipe(
         filter( (response: any) => response instanceof HttpResponse ),
         map((response: any) => {
-            console.log('Response', response);
+            this.subject.next(response.body.user);
             return response.body;
         })
     );
