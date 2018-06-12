@@ -24,6 +24,21 @@ export class UserService {
       );
   }
 
+
+  public updateUser(user: User): Observable<any> {
+
+    const token = localStorage.getItem('token');
+    const url = SERVICE_URL + `/user/${user._id}?token=${token}`;
+
+    return this.http.request(new HttpRequest('PUT', url, user)).pipe(
+        filter( (response: any) => response instanceof HttpResponse ),
+        map((response: any) => {
+            console.log('Response', response);
+            return response.body;
+        })
+    );
+  }
+
   public login(login: Login): Observable<any> {
     const url = SERVICE_URL + '/login';
     return this.http.request(new HttpRequest('POST', url, login)).pipe(
