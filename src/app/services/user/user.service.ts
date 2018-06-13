@@ -7,13 +7,14 @@ import { Observable } from 'rxjs/internal/Observable';
 import { filter, map } from 'rxjs/operators';
 import { Login } from '../../models/login.model';
 import { Subject } from 'rxjs/internal/Subject';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class UserService {
 
   // Por medio de este observable se notifica que el usuario se ha modificado.
   private subject = new Subject<any>();
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _uploadService: UploadService) { }
 
   public getSubject(): Observable<any> {
       return this.subject.asObservable();
@@ -45,6 +46,17 @@ export class UserService {
         })
     );
   }
+
+  public changeImage(image: File, id: string): Observable<any> {
+        const observable: Observable<any> = this._uploadService.upload(image, 'users', id);
+        observable.subscribe(
+            (response) => {
+                this.subject.next(response.user);
+            }
+        );
+        return observable;
+  }
+
 
   public login(login: Login): Observable<any> {
     const url = SERVICE_URL + '/login';

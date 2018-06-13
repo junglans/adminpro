@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { SERVICE_URL } from '../../config/config';
 
 @Injectable()
 export class UploadService {
@@ -25,6 +26,14 @@ export class UploadService {
                 }
               }
             };
+
+            xhr.upload.onprogress = (event) => {
+              console.log('Progreso ', Math.round(event.loaded / event.total * 100)) ;
+            };
+            const url = SERVICE_URL + `/upload/${type}/${id}`;
+
+            xhr.open('PUT', url, true);
+            xhr.send(formData);
         }
 
     );

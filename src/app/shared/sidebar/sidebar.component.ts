@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SidebarService, UserService } from '../../services/service.index';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
@@ -16,7 +16,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   user: User;
 
   constructor(private _router: Router, private _userService: UserService,
-              private _sidebarService: SidebarService) { 
+              private _sidebarService: SidebarService) {
         this.subscription = this._userService.getSubject().subscribe(
                   (message => {
                      this.user = message;
