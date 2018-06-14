@@ -12,7 +12,8 @@ export class ProfileComponent implements OnInit {
 
   user: User;
   userImage: File;
-  urlImage: string;
+  tempImage: string;
+
   constructor( private _userService: UserService) { }
 
   ngOnInit() {
@@ -21,7 +22,6 @@ export class ProfileComponent implements OnInit {
 
   private loadUserData(): void {
       this.user = JSON.parse(localStorage.getItem('user'));
-      this.urlImage = SERVICE_URL + `/img/users/${this.user.img}`;
   }
 
   public saveData(value: any) {
@@ -53,6 +53,21 @@ export class ProfileComponent implements OnInit {
   public chooseImage(file: File) {
       this.userImage = null;
       if (file) {
+        if (file.type.indexOf('image') < 0) {
+          swal({
+            title: 'Tipo de archivo erróneo',
+            text: 'El archivo seleccionado no es una imagen',
+            icon: 'error'
+          });
+          return;
+        }
+
+        // código nativo javascript
+        const reader = new FileReader();
+        const urlTempImage = reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          this.tempImage = reader.result;
+        };
         this.userImage = file;
       }
   }
@@ -61,7 +76,6 @@ export class ProfileComponent implements OnInit {
       this._userService.changeImage(this.userImage, this.user._id).subscribe(
         (response) => {
             this.user.img = response.user.img;
-            this.urlImage = SERVICE_URL + `/img/users/${this.user.img}`;
             localStorage.setItem('user', JSON.stringify(response.user));
             swal({
               title: 'Imagen actualizada',
