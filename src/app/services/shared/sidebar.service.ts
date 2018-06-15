@@ -40,6 +40,31 @@ export class SidebarService {
           submenus: []
         }
       ]
+    },
+    {
+      title: 'MANTENIMIENTOS',
+      icon: 'mdi mdi-folder-lock-open',
+      url: '',
+      submenus: [
+        {
+          title: 'Usuarios',
+          icon: '',
+          url: '/users',
+          submenus: []
+        },
+        {
+          title: 'Hospitales',
+          icon: '',
+          url: '/hospitals',
+          submenus: []
+        },
+        {
+          title: 'Médicos',
+          icon: '',
+          url: '/doctors',
+          submenus: []
+        }
+      ]
     }]
   };
 

@@ -8,6 +8,7 @@ import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { LoginGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './users/users.component';
 
 
 const pagesRoutes: Routes = [
@@ -22,6 +23,9 @@ const pagesRoutes: Routes = [
             {path: 'account-settings', canActivate: [LoginGuard], component: AccountSettingsComponent,  data: {title: 'Ajustes de Tema'}},
             {path: 'promises', canActivate: [LoginGuard], component: PromisesComponent,  data: {title: 'Promesas'}},
             {path: 'rxjs', canActivate: [LoginGuard], component: RxjsComponent,  data: {title: 'Rxjs'}},
+            // Mantenimientos.
+            {path: 'users', canActivate: [LoginGuard], component: UsersComponent, data: {title: 'Mantenimiento de Usuarios'}},
+
             {path: '', canActivate: [LoginGuard], redirectTo: '/dashboard', pathMatch: 'full'},
         ]
     }
