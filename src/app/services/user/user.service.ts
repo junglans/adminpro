@@ -57,6 +57,15 @@ export class UserService {
         return observable;
   }
 
+  public loadUsers(from: number = 0): Observable<any> {
+    const url = SERVICE_URL + `/user?from=${from}`;
+    return this.http.request(new HttpRequest('GET', url)).pipe(
+        filter( (response: any) => response instanceof HttpResponse ),
+        map((response: any) => {
+            return response.body;
+        })
+    );
+  }
 
   public login(login: Login): Observable<any> {
     const url = SERVICE_URL + '/login';
