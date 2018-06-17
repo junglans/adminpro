@@ -3,14 +3,14 @@
         <div class="card">
             <div class="card-body">
 
-                <input #input type="text" class="form-control" placeholder="Buscar usuario..." />
+                <input #input (keyup)="startSearchUsers(input.value)" type="text" class="form-control" placeholder="Buscar usuario..." />
 
             </div>
         </div>
     </div>
 </div>
 
-<div class="row animated fadeIn">
+<div class="row animated fadeIn" *ngIf="loading">
     <div class="col-12">
         <div class="alert alert-warning text-center">
             <div><strong>Cargando...</strong></div>
@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div class="row animated fadeIn">
+<div class="row animated fadeIn" *ngIf="!loading">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -36,7 +36,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of users">
-                            <td>Imagen</td>
+                            <td class="w70"><img src="{{user.img | image}}" class="img-50" /></td>
                             <td>{{user.email}}</td>
                             <td>{{user.name}}</td>
                             <td>{{user.role}}</td>
@@ -55,10 +55,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <button (click)="page(-5)" class="btn btn-secondary">
+                <button (click)="page(-5, input.value)" class="btn btn-secondary" *ngIf="from !== 0">
                     Anteriores
                 </button>
-                <button (click)="page(5)" class="btn btn-secondary">
+                <button (click)="page(5, input.value)" class="btn btn-secondary" *ngIf="(from + 5) < totalRecords">
                     Siguiente
                 </button>
             </div>

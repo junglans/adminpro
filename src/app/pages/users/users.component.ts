@@ -12,6 +12,8 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   from: number = 0;
   totalRecords: number = 0;
+  loading: boolean = true;
+
   constructor(private _userService: UserService) { }
 
   ngOnInit() {
@@ -19,13 +21,15 @@ export class UsersComponent implements OnInit {
   }
 
   loadUsers() {
+    this.loading = true;
     this._userService.loadUsers(this.from).subscribe(
       (response) => {
         this.totalRecords = response.total;
         this.users = response.users;
-        console.log(response.users);
+        this.loading = false;
       },
       (error) => {
+        this.loading = false;
         swal({title: 'Se ha producido un error.',
               text: error.error.errors.message,
               icon: 'error'});
@@ -35,7 +39,7 @@ export class UsersComponent implements OnInit {
       });
   }
 
-  public page(from: number) {
+  public page(from: number, term: string) {
     const value = this.from + from;
     if (value >= this.totalRecords) {
         return;
@@ -44,7 +48,38 @@ export class UsersComponent implements OnInit {
       return;
     }
     this.from = value;
-    console.log(this.from);
-    this.loadUsers();
+    if (!term && term.length === 0) {
+      this.loadUsers();
+    } else {
+      this.searchUsers(term);
+    }
+  }
+
+  public startSearchUsers(term: string) {
+    this.from = 0;
+    if (!term && term.length === 0) {
+      this.loadUsers();
+    } else {
+      this.searchUsers(term);
+    }
+  }
+
+  public searchUsers(term: string) {
+    this.loading = true;
+    this._userService.searchUsers(term, this.from).subscribe(
+      (response) => {
+        this.totalRecords = response.total;
+        this.users = response.users;
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        swal({title: 'Se ha producido un error.',
+              text: error.error.errors.message,
+              icon: 'error'});
+            },
+      () => {
+        console.log('loadUsers: Fin observación');
+      });
   }
 }

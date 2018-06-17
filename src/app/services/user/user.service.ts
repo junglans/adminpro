@@ -67,6 +67,19 @@ export class UserService {
     );
   }
 
+
+  public searchUsers(term: string, from: number = 0): Observable<any> {
+    console.log('From:' + from);
+    const url = SERVICE_URL + `/search/entity/users/${term}?from=${from}`;
+    return this.http.request(new HttpRequest('GET', url)).pipe(
+        filter( (response: any) => response instanceof HttpResponse ),
+        map((response: any) => {
+            return response.body;
+        })
+    );
+
+  }
+
   public login(login: Login): Observable<any> {
     const url = SERVICE_URL + '/login';
     return this.http.request(new HttpRequest('POST', url, login)).pipe(
