@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
 
-                <input #input (keyup)="startSearchUsers(input.value)" type="text" class="form-control" placeholder="Buscar usuario..." />
+                <input [(ngModel)]="term" (keyup)="startSearchUsers()" type="text" class="form-control" placeholder="Buscar usuario..." />
 
             </div>
         </div>
@@ -39,13 +39,18 @@
                             <td class="w70"><img src="{{user.img | image}}" class="img-50" /></td>
                             <td>{{user.email}}</td>
                             <td>{{user.name}}</td>
-                            <td>{{user.role}}</td>
+                            <td>
+                                <select [(ngModel)]="user.role">
+                                    <option [selected]="user.role==='ADMIN_ROLE'">ADMIN_ROLE</option>
+                                    <option [selected]="user.role==='USER_ROLE'">USER_ROLE</option>
+                                </select>
+                            </td>
                             <td>
                                 <label *ngIf="user.google" class="label label-info">Google</label>
                                 <label *ngIf="!user.google" class="label label-danger">Normal</label>
                             </td>
                             <td>
-                                <button class="btn btn-primary">
+                                <button class="btn btn-primary" (click)="updateUser(user)">
                                   <i class="fa fa-save"></i>
                                 </button>
                                 <button class="btn btn-danger" (click)="deleteUser(user)">
@@ -55,10 +60,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <button (click)="page(-5, input.value)" class="btn btn-secondary" *ngIf="from !== 0">
+                <button (click)="page(-5)" class="btn btn-secondary" *ngIf="from !== 0">
                     Anteriores
                 </button>
-                <button (click)="page(5, input.value)" class="btn btn-secondary" *ngIf="(from + 5) < totalRecords">
+                <button (click)="page(5)" class="btn btn-secondary" *ngIf="(from + 5) < totalRecords">
                     Siguiente
                 </button>
             </div>

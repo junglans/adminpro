@@ -39,7 +39,7 @@ export class UsersComponent implements OnInit {
       });
   }
 
-  public page(from: number, term: string) {
+  public page(from: number) {
     const value = this.from + from;
     if (value >= this.totalRecords) {
         return;
@@ -48,24 +48,23 @@ export class UsersComponent implements OnInit {
       return;
     }
     this.from = value;
-    if (!term && term.length === 0) {
+    if (!this.term && this.term.length === 0) {
       this.loadUsers();
     } else {
-      this.searchUsers(term);
+      this.searchUsers(this.term);
     }
   }
 
-  public startSearchUsers(term: string) {
+  public startSearchUsers() {
     this.from = 0;
-    this.term = term;
-    if (!term && term.length === 0) {
+    if (!this.term && this.term.length === 0) {
       this.loadUsers();
     } else {
-      this.searchUsers(term);
+      this.searchUsers(this.term);
     }
   }
 
-  public searchUsers(term: string) {
+  private searchUsers(term: string) {
     this.loading = true;
     this._userService.searchUsers(term, this.from).subscribe(
       (response) => {
@@ -84,6 +83,28 @@ export class UsersComponent implements OnInit {
       });
   }
 
+  public updateUser(user: User) {
+    if (user) {
+      this._userService.updateUser(user).subscribe(
+          (response) => {
+            const sessionUser: User = JSON.parse(localStorage.getItem('user'));
+            if (user._id === sessionUser._id) {
+              localStorage.setItem('user', JSON.stringify(user));
+            }
+            swal({title: 'Operación realiza.',
+                          text: 'Actualización realizada con éxito',
+                          icon: 'success'});
+          },
+          (error) => {
+            swal({title: 'Se ha producido un error.',
+                            text: error.error.errors.message,
+                            icon: 'error'});
+          },
+          () => {}
+
+      );
+    }
+  }
   public deleteUser(user: User) {
       if (user) {
 
@@ -106,17 +127,17 @@ export class UsersComponent implements OnInit {
                if (accept) {
                   this._userService.deleteUser(user._id).subscribe(
                      (response) => {
-                      this.startSearchUsers(this.term);
+                      this.startSearchUsers();
                       swal({title: 'Operación realiza.',
                             text: 'Borrado realizado con éxito',
-                            icon: 'info'});
+                            icon: 'success'});
                      },
                      (error) => {
                       swal({title: 'Se ha producido un error.',
                             text: error.error.errors.message,
                             icon: 'error'});
                      },
-                     () => { console.log('deleteUser: Observación terminada.')}
+                     () => { console.log('deleteUser: Observación terminada.'); }
                   );
                } else {
                   swal({title: 'Operación cancelada.',

@@ -21,30 +21,15 @@ export class UserService {
   }
 
   public crearUser(user: User): Observable<any> {
-
       const url = SERVICE_URL + '/user';
-      return this.http.request(new HttpRequest('POST', url, user))
-      .pipe(
-          filter( (response: any) => response instanceof HttpResponse ),
-          map((response: any) => {
-              return response.body;
-          })
-      );
+      return this.executeRequest('POST', url, user);
   }
 
 
   public updateUser(user: User): Observable<any> {
-
     const token = localStorage.getItem('token');
     const url = SERVICE_URL + `/user/${user._id}?token=${token}`;
-
-    return this.http.request(new HttpRequest('PUT', url, user)).pipe(
-        filter( (response: any) => response instanceof HttpResponse ),
-        map((response: any) => {
-            this.subject.next(response.body.user);
-            return response.body;
-        })
-    );
+    return this.executeRequest('PUT', url, user);
   }
 
   public changeImage(image: File, id: string): Observable<any> {
@@ -59,55 +44,29 @@ export class UserService {
 
   public loadUsers(from: number = 0): Observable<any> {
     const url = SERVICE_URL + `/user?from=${from}`;
-    return this.http.request(new HttpRequest('GET', url)).pipe(
-        filter( (response: any) => response instanceof HttpResponse ),
-        map((response: any) => {
-            return response.body;
-        })
-    );
+    return this.executeRequest('GET', url);
   }
 
 
   public searchUsers(term: string, from: number = 0): Observable<any> {
     const url = SERVICE_URL + `/search/entity/users/${term}?from=${from}`;
-    return this.http.request(new HttpRequest('GET', url)).pipe(
-        filter( (response: any) => response instanceof HttpResponse ),
-        map((response: any) => {
-            return response.body;
-        })
-    );
-
+    return this.executeRequest('GET', url);
   }
 
   public deleteUser(userId: string): Observable<any> {
-        const token = localStorage.getItem('token');
-        const url = SERVICE_URL + `/user/${userId}?token=${token}`;
-        return this.http.request(new HttpRequest('DELETE', url)).pipe(
-            filter( (response: any) => response instanceof HttpResponse ),
-            map((response: any) => {
-                return response.body;
-            })
-        );
+    const token = localStorage.getItem('token');
+    const url = SERVICE_URL + `/user/${userId}?token=${token}`;
+    return this.executeRequest('DELETE', url);
   }
 
   public login(login: Login): Observable<any> {
     const url = SERVICE_URL + '/login';
-    return this.http.request(new HttpRequest('POST', url, login)).pipe(
-        filter( (response: any) => response instanceof HttpResponse ),
-        map((response: any) => {
-            return response.body;
-        })
-    );
+    return this.executeRequest('POST', url, login);
   }
 
   public loginGoogle(token: string): Observable<any> {
     const url = SERVICE_URL + '/login/google';
-    return this.http.request(new HttpRequest('POST', url , { token })).pipe(
-        filter( (response: any) => response instanceof HttpResponse ),
-        map((response: any) => {
-            return response.body;
-        })
-    );
+    return this.executeRequest('POST', url, { token });
   }
 
 
@@ -127,6 +86,15 @@ export class UserService {
         (observer) => {
             observer.next(true);
         }
+    );
+  }
+
+  private executeRequest(method: string, url: string, body?: any):  Observable<any> {
+    return this.http.request(new HttpRequest(method, url, body)).pipe(
+        filter( (response: any) => response instanceof HttpResponse ),
+        map((response: any) => {
+            return response.body;
+        })
     );
   }
 }
