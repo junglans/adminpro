@@ -69,7 +69,6 @@ export class UserService {
 
 
   public searchUsers(term: string, from: number = 0): Observable<any> {
-    console.log('From:' + from);
     const url = SERVICE_URL + `/search/entity/users/${term}?from=${from}`;
     return this.http.request(new HttpRequest('GET', url)).pipe(
         filter( (response: any) => response instanceof HttpResponse ),
@@ -78,6 +77,17 @@ export class UserService {
         })
     );
 
+  }
+
+  public deleteUser(userId: string): Observable<any> {
+        const token = localStorage.getItem('token');
+        const url = SERVICE_URL + `/user/${userId}?token=${token}`;
+        return this.http.request(new HttpRequest('DELETE', url)).pipe(
+            filter( (response: any) => response instanceof HttpResponse ),
+            map((response: any) => {
+                return response.body;
+            })
+        );
   }
 
   public login(login: Login): Observable<any> {
@@ -106,7 +116,7 @@ export class UserService {
     localStorage.removeItem('id');
     localStorage.removeItem('token');
 
-    const remember:boolean = JSON.parse(localStorage.getItem('remember')) || false;
+    const remember: boolean = JSON.parse(localStorage.getItem('remember')) || false;
     if (!remember) {
          localStorage.removeItem('user');
     }
