@@ -36,7 +36,11 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of users">
-                            <td class="w70"><img src="{{user.img | image}}" class="img-50" /></td>
+                            <td class="w70">
+                                <button type="button" data-toggle="modal" data-target="#uploadModal" style="padding:0px;border:0px">
+                                    <img src="{{user.img | image}}" class="img-50"/>
+                                </button>
+                            </td>
                             <td>{{user.email}}</td>
                             <td>{{user.name}}</td>
                             <td>

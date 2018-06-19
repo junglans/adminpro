@@ -22,6 +22,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 
 
 
@@ -37,7 +38,8 @@ import { UsersComponent } from './users/users.component';
         PromisesComponent,
         RxjsComponent,
         ProfileComponent,
-        UsersComponent
+        UsersComponent,
+        ModalUploadComponent
     ],
     exports: [
         DashboardComponent,
