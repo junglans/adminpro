@@ -32,6 +32,12 @@ export class UserService {
     return this.executeRequest('PUT', url, user);
   }
 
+  public changeUser(user: User) {
+    if (user) {
+       this.subject.next(user);
+    }
+  }
+
   public changeImage(image: File, id: string): Observable<any> {
         const observable: Observable<any> = this._uploadService.upload(image, 'users', id);
         observable.subscribe(

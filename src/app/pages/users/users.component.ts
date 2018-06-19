@@ -1,23 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/service.index';
+import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styles: []
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 
   users: User[] = [];
   from: number = 0;
   totalRecords: number = 0;
   loading: boolean = true;
   term: string = '';
-  constructor(private _userService: UserService) { }
+  subscription: Subscription;
+
+  constructor(private _userService: UserService,
+              private _modalUploadService: ModalUploadService) {
+              this.subscription = this._modalUploadService.getObservable()
+                          .subscribe(
+                              (response: any) => {
+                                this.startSearchUsers();
+                                const sessionUser = JSON.parse(localStorage.getItem('user'));
+                                if (response.user._id === sessionUser._id) {
+                                  localStorage.setItem('user', JSON.stringify(response.user));
+                                  this._userService.changeUser(response.user);
+                                }
+                              }
+                          );
+               }
 
   ngOnInit() {
     this.loadUsers();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  /**
+   *  @param user Pasamos la información del usuario al popup.
+   */
+  publishUser(user: User) {
+    this._modalUploadService.type = 'users';
+    this._modalUploadService.id = user._id;
+    this._modalUploadService.img = user.img;
   }
 
   loadUsers() {

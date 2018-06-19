@@ -38,7 +38,7 @@
                         <tr *ngFor="let user of users">
                             <td class="w70">
                                 <button type="button" data-toggle="modal" data-target="#uploadModal" style="padding:0px;border:0px">
-                                    <img src="{{user.img | image}}" class="img-50"/>
+                                    <img src="{{user.img | image}}" class="img-50 pointer" (click)="publishUser(user)"/>
                                 </button>
                             </td>
                             <td>{{user.email}}</td>
