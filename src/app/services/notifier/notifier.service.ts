@@ -17,31 +17,38 @@ export class NotifierService {
     });
   }
 
-  public subscribeOn(topic: string): Observable<any> {
+  public subscribeOn(topic: string): Observable<Observable<any>> {
 
-      const subject: Subject<any> = this.subjects[topic].subject;
-      if (subject) {
-        return subject.asObservable();
-      } else {
-        return null;
+    return new Observable<any>(
+      (observer) => {
+         const subject: Subject<any> = this.subjects[topic].subject;
+         if (subject) {
+            observer.next(subject.asObservable());
+         } else {
+            observer.error({error: `Topic not found: ${topic}`});
+         }
+         observer.complete();
       }
+    );
   }
 
-  public publishOn(topic: string, message: any): Promise<boolean> {
+  public publishOn(topic: string, message: any): Observable<boolean> {
 
-     return new Promise<any>(
-      (resolve, reject) => {
+     return new Observable<any>(
+      (observer) => {
           const subject: Subject<any> = this.subjects[topic].subject;
           if (subject) {
               if (message instanceof this.subjects[topic].objectClass) {
+                // Publicando en el tópico.
                 subject.next(message);
-                resolve(true);
+                observer.next(true);
               } else {
-                reject({error: `Invalid class for topic: ${topic}`});
+                observer.error({error: `Invalid class for topic: ${topic}`});
               }
           } else {
-            reject({error: `Topic not found: ${topic}`});
+            observer.error({error: `Topic not found: ${topic}`});
           }
+          observer.complete();
          }
       );
 
