@@ -8,13 +8,16 @@ import { filter, map } from 'rxjs/operators';
 import { Login } from '../../models/login.model';
 import { Subject } from 'rxjs/internal/Subject';
 import { UploadService } from '../upload/upload.service';
+import { BaseService } from '../base.service';
 
 @Injectable()
-export class UserService {
+export class UserService extends BaseService {
 
   // Por medio de este observable se notifica que el usuario se ha modificado.
   private subject = new Subject<any>();
-  constructor(private http: HttpClient, private _uploadService: UploadService) { }
+  constructor(public http: HttpClient, private _uploadService: UploadService) { 
+    super(http);
+  }
 
   public getSubject(): Observable<any> {
       return this.subject.asObservable();
@@ -95,12 +98,5 @@ export class UserService {
     );
   }
 
-  private executeRequest(method: string, url: string, body?: any):  Observable<any> {
-    return this.http.request(new HttpRequest(method, url, body)).pipe(
-        filter( (response: any) => response instanceof HttpResponse ),
-        map((response: any) => {
-            return response.body;
-        })
-    );
-  }
+
 }

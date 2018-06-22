@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
 
-                <input [(ngModel)]="term" (keyup)="startSearchUsers()" type="text" class="form-control" placeholder="Buscar usuario..." />
+                <input [(ngModel)]="term" (keyup)="startSearch()" type="text" class="form-control" placeholder="Buscar usuario..." />
 
             </div>
         </div>
@@ -54,10 +54,10 @@
                                 <label *ngIf="!user.google" class="label label-danger">Normal</label>
                             </td>
                             <td>
-                                <button class="btn btn-primary" (click)="updateUser(user)">
+                                <button class="btn btn-primary" (click)="update(user)">
                                   <i class="fa fa-save"></i>
                                 </button>
-                                <button class="btn btn-danger" (click)="deleteUser(user)">
+                                <button class="btn btn-danger" (click)="delete(user)">
                                   <i class="fa fa-trash-o"></i>
                               </button>
                             </td>

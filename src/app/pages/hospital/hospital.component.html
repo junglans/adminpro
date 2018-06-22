@@ -1,0 +1,53 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input [(ngModel)]="term" (keyup)="startSearch()" type="text" class="form-control" placeholder="Buscar hospital..." />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row animated fadeIn" *ngIf="loading">
+    <div class="col-12">
+        <div class="alert alert-warning text-center">
+            <div><strong>Cargando...</strong></div>
+            <div><i class="fa fa-refresh fa-spin fa-2x"></i></div>
+            <div><span>Espere por favor</span></div>
+        </div>
+    </div>
+</div>
+<div class="row animated fadeIn" *ngIf="!loading">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Hospitales registrados (<small>{{totalRecords}}</small>)</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <th>Nombre</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let hospital of hospitals">
+
+                            <td>{{hospital.name}}</td>
+                            <td>
+                                <button class="btn btn-primary" (click)="update(hospital)">
+                                <i class="fa fa-save"></i>
+                              </button>
+                                <button class="btn btn-danger" (click)="delete(hospital)">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button (click)="page(-5)" class="btn btn-secondary" *ngIf="from !== 0">
+                  Anteriores
+              </button>
+                <button (click)="page(5)" class="btn btn-secondary" *ngIf="(from + 5) < totalRecords">
+                  Siguiente
+              </button>
+            </div>
+        </div>
+    </div>
+</div>

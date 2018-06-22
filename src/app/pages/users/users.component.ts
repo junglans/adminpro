@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit, OnDestroy {
               this.subscription = this._modalUploadService.getObservable()
                           .subscribe(
                               (response: any) => {
-                                this.startSearchUsers();
+                                this.startSearch();
                                 const sessionUser = JSON.parse(localStorage.getItem('user'));
                                 if (response.user._id === sessionUser._id) {
                                   localStorage.setItem('user', JSON.stringify(response.user));
@@ -34,7 +34,7 @@ export class UsersComponent implements OnInit, OnDestroy {
                }
 
   ngOnInit() {
-    this.loadUsers();
+    this.load();
   }
 
   ngOnDestroy() {
@@ -50,7 +50,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this._modalUploadService.img = user.img;
   }
 
-  loadUsers() {
+  load() {
     this.loading = true;
     this._userService.loadUsers(this.from).subscribe(
       (response) => {
@@ -79,22 +79,23 @@ export class UsersComponent implements OnInit, OnDestroy {
     }
     this.from = value;
     if (!this.term && this.term.length === 0) {
-      this.loadUsers();
+      this.load();
     } else {
-      this.searchUsers(this.term);
+      this.search(this.term);
     }
   }
 
-  public startSearchUsers() {
+  public startSearch() {
     this.from = 0;
-    if (!this.term && this.term.length === 0) {
-      this.loadUsers();
+    this.loading = true;
+    if (!this.term || this.term.length === 0) {
+      this.load();
     } else {
-      this.searchUsers(this.term);
+      this.search(this.term);
     }
   }
 
-  private searchUsers(term: string) {
+  private search(term: string) {
     this.loading = true;
     this._userService.searchUsers(term, this.from).subscribe(
       (response) => {
@@ -113,7 +114,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       });
   }
 
-  public updateUser(user: User) {
+  public update(user: User) {
     if (user) {
       this._userService.updateUser(user).subscribe(
           (response) => {
@@ -135,7 +136,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       );
     }
   }
-  public deleteUser(user: User) {
+  public delete(user: User) {
       if (user) {
 
           const sessionUser: User = JSON.parse(localStorage.getItem('user'));
@@ -157,7 +158,7 @@ export class UsersComponent implements OnInit, OnDestroy {
                if (accept) {
                   this._userService.deleteUser(user._id).subscribe(
                      (response) => {
-                      this.startSearchUsers();
+                      this.startSearch();
                       swal({title: 'Operación realiza.',
                             text: 'Borrado realizado con éxito',
                             icon: 'success'});
