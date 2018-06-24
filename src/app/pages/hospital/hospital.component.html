@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <input [(ngModel)]="term" (keyup)="startSearch()" type="text" class="form-control" placeholder="Buscar hospital..." />
+                <input [(ngModel)]="term" (keyup)="page()" type="text" class="form-control" placeholder="Buscar hospital..." />
             </div>
         </div>
     </div>
@@ -27,14 +27,13 @@
                         <th></th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let hospital of hospitals">
-
-                            <td>{{hospital.name}}</td>
+                        <tr *ngFor="let row of hospitals">
                             <td>
-                                <button class="btn btn-primary" (click)="update(hospital)">
-                                <i class="fa fa-save"></i>
-                              </button>
-                                <button class="btn btn-danger" (click)="delete(hospital)">
+                                <div *ngIf="!row.edit" (click)="edit(row)">{{row.hospital.name}}</div>
+                                <input *ngIf="row.edit" type="text" [(ngModel)]="row.hospital.name" style="width:100%; padding-left:0px; padding-right:0px;" (keyup)="keyUp($event)" />
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" (click)="delete(row.hospital)">
                                 <i class="fa fa-trash-o"></i>
                             </button>
                             </td>

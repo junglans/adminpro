@@ -25,8 +25,6 @@ import { UsersComponent } from './users/users.component';
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 import { HospitalComponent } from './hospital/hospital.component';
 
-
-
 @NgModule({
     declarations: [
         PagesComponent,

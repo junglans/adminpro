@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { SERVICE_URL } from '../../config/config';
-import { filter } from 'rxjs/internal/operators/filter';
-import { map } from 'rxjs/internal/operators/map';
 import { BaseService } from '../base.service';
+import { Hospital } from '../../models/hospital.model';
 
 @Injectable()
 export class HospitalService extends BaseService {
@@ -22,4 +21,14 @@ export class HospitalService extends BaseService {
     const url = SERVICE_URL + `/search/entity/hospitals/${term}?from=${from}`;
     return this.executeRequest('GET', url);
   }
+
+  public deleteHospital(hospital: Hospital): Observable<any> {
+      const url = SERVICE_URL + `/hospital/${hospital._id}?token=${localStorage.getItem('token')}`;
+      return this.executeRequest('DELETE', url);
+  }
+ 
+  public updateHospital(hospital: Hospital): Observable<any> {
+    const url = SERVICE_URL + `/hospital/${hospital._id}?token=${localStorage.getItem('token')}`;
+    return this.executeRequest('PUT', url, hospital);
+}
 }
