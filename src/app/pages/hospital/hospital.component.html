@@ -27,10 +27,10 @@
                         <th></th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let row of hospitals">
+                        <tr *ngFor="let row of hospitals; let i = index">
                             <td>
-                                <div *ngIf="!row.edit" (click)="edit(row)">{{row.hospital.name}}</div>
-                                <input *ngIf="row.edit" type="text" [(ngModel)]="row.hospital.name" style="width:100%; padding-left:0px; padding-right:0px;" (keyup)="keyUp($event)" />
+                                <div *ngIf="!row.edit" (click)="edit(row, i)">{{row.hospital.name}}</div>
+                                <input [id]="'name' + i" [hidden]="!row.edit" type="text" [(ngModel)]="row.hospital.name" style="width:100%; padding-left:0px; padding-right:0px;" (keyup)="keyUp($event)" />
                             </td>
                             <td>
                                 <button class="btn btn-danger" (click)="delete(row.hospital)">

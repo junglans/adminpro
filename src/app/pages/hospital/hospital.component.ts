@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { HospitalService } from '../../services/hospital/hospital.service';
 import { Hospital } from '../../models/hospital.model';
-import { SERVICE_URL } from '../../config/config';
+
 
 @Component({
   selector: 'app-hospital',
@@ -16,6 +16,7 @@ export class HospitalComponent implements OnInit {
   hospitals = [];
   loading: boolean = true;
   edited: any ;
+  memento: string;
 
   constructor(private _hospitalService: HospitalService) {}
 
@@ -95,6 +96,10 @@ export class HospitalComponent implements OnInit {
     );
   }
   public delete(hospital: Hospital) {
+    if (this.edited) {
+      this.edited.edit = false;
+      this.edited.hospital.name = this.memento;
+    }
     swal({title: 'Solicitud de confirmación.',
           text: `¿Desea borrar el hospital ${hospital.name}.?` ,
           icon: 'info',
@@ -138,18 +143,22 @@ export class HospitalComponent implements OnInit {
       }
   }
 
-  public edit(row: any) {
+  public edit(row: any, index: number) {
     if (this.edited) {
       this.edited.edit = false;
+      this.edited.hospital.name = this.memento;
     }
     this.edited = row;
+    this.memento = row.hospital.name;
     this.edited.edit = true;
+    document.getElementById('name' + index).hidden = false;
+    document.getElementById('name' + index).focus();
   }
 
   public keyUp(event: KeyboardEvent) {
     if (event.code === 'Enter') {
       const value = event.srcElement['value'];
-      if (value && value.length != 0) {
+      if (value && value.length !== 0) {
         this.edited.edit = false;
         this.update(this.edited.hospital);
       }
