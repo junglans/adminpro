@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, HostListener} from '@angular/core';
 import { HospitalService } from '../../services/hospital/hospital.service';
 import { Hospital } from '../../models/hospital.model';
 
@@ -15,6 +15,7 @@ export class HospitalComponent implements OnInit {
   totalRecords: number = 0;
   hospitals = [];
   loading: boolean = true;
+  // Esta es la fila que se está editando.
   edited: any ;
   memento: string;
 
@@ -161,6 +162,18 @@ export class HospitalComponent implements OnInit {
       if (value && value.length !== 0) {
         this.edited.edit = false;
         this.update(this.edited.hospital);
+      }
+    }
+  }
+
+  @HostListener('document:click', ['$event.target'])
+  clickout() {
+
+    if ( !event.target['classList'].contains('editable') &&
+         !event.target['classList'].contains('editable_text')) {
+      if (this.edited) {
+        this.edited.edit = false;
+        this.edited.hospital.name = this.memento;
       }
     }
   }
