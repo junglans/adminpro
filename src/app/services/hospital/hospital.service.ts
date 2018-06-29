@@ -30,5 +30,10 @@ export class HospitalService extends BaseService {
   public updateHospital(hospital: Hospital): Observable<any> {
     const url = SERVICE_URL + `/hospital/${hospital._id}?token=${localStorage.getItem('token')}`;
     return this.executeRequest('PUT', url, hospital);
-}
+  }
+
+  public createHospital(hospital: Hospital): Observable<any> {
+    const url = SERVICE_URL + `/hospital?token=${localStorage.getItem('token')}`;
+    return this.executeRequest('POST', url, hospital);
+  }
 }

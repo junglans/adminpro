@@ -1,14 +1,18 @@
-import { Component, OnInit, HostListener} from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy, ChangeDetectorRef, AfterViewChecked} from '@angular/core';
 import { HospitalService } from '../../services/hospital/hospital.service';
 import { Hospital } from '../../models/hospital.model';
-
+import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { SwalOptions } from 'sweetalert/typings/modules/options';
+ 
+export type SwalParams = (string|Partial<SwalOptions>)[];
 
 @Component({
   selector: 'app-hospital',
   templateUrl: './hospital.component.html',
   styles: []
 })
-export class HospitalComponent implements OnInit {
+export class HospitalComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   from: number = 0;
   term: string = '';
@@ -18,8 +22,18 @@ export class HospitalComponent implements OnInit {
   // Esta es la fila que se está editando.
   edited: any ;
   memento: string;
+  subscription: Subscription;
 
-  constructor(private _hospitalService: HospitalService) {}
+  constructor(private _hospitalService: HospitalService,
+              private _modalUploadService: ModalUploadService,
+              private cdRef: ChangeDetectorRef) {
+              this.subscription = this._modalUploadService.getObservable()
+                .subscribe(
+                  (response: any) => {
+                     this.page(this.from);
+                  }
+                );
+  }
 
 
   ngOnInit() {
@@ -27,6 +41,20 @@ export class HospitalComponent implements OnInit {
     this.page();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  // called after every check of a component’s view(s);
+  ngAfterViewChecked() {
+     this.cdRef.detectChanges();
+  }
+
+  publishHospital(hospital: Hospital) {
+    this._modalUploadService.type = 'hospitals';
+    this._modalUploadService.id = hospital._id;
+    this._modalUploadService.img = hospital.img;
+  }
   private load() {
 
     this._hospitalService.loadHospitals(this.from).subscribe(
@@ -75,6 +103,34 @@ export class HospitalComponent implements OnInit {
       });
   }
 
+  public createHospital() {
+    swal('Introduce el nombre del Hospital:',
+        {
+          content: {element: 'input'}
+        }
+      ).then((value) => {
+         const hospital: Hospital = new Hospital(value, null);
+         this._hospitalService.createHospital(hospital).subscribe(
+          (response) => {
+            swal({title: 'Actualización realizada.',
+            icon: 'success'}).then(
+              () => {
+                this.page();
+              }
+            );
+          },
+          (error) => {
+            swal({title: 'Se ha producido un error.',
+            text: error.error.errors.message,
+            icon: 'error'});
+          },
+          () => {
+            console.log('create: Fin observación');
+          }
+
+         );
+      });
+  }
   public update(hospital: Hospital) {
 
     this._hospitalService.updateHospital(hospital).subscribe(
@@ -96,6 +152,7 @@ export class HospitalComponent implements OnInit {
               }
     );
   }
+
   public delete(hospital: Hospital) {
     if (this.edited) {
       this.edited.edit = false;
@@ -157,6 +214,7 @@ export class HospitalComponent implements OnInit {
   }
 
   public keyUp(event: KeyboardEvent) {
+     
     if (event.code === 'Enter') {
       const value = event.srcElement['value'];
       if (value && value.length !== 0) {

@@ -7,6 +7,7 @@
         </div>
     </div>
 </div>
+
 <div class="row animated fadeIn" *ngIf="loading">
     <div class="col-12">
         <div class="alert alert-warning text-center">
@@ -20,7 +21,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h3 class="card-title">Hospitales registrados (<small>{{totalRecords}}</small>)</h3>
+                <div>
+                    <div style="float: left">
+                        <h3 class="card-title">Hospitales registrados (<small>{{totalRecords}}</small>)</h3>
+                    </div>
+                    <div style="float: right">
+                        <button type="button" class="btn btn-rounded btn-primary" (click)="createHospital()">
+                            <i class="fa fa-plus"></i>Crear Hospital
+                        </button>
+                    </div>
+                </div>
                 <table class="table table-hover">
                     <thead>
                         <th>Nombre</th>
@@ -28,6 +38,12 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let row of hospitals; let i = index">
+
+                            <td class="w70">
+                                <button type="button" data-toggle="modal" data-target="#uploadModal" style="padding:0px;border:0px" (click)="publishHospital(row.hospital)">
+                                    <img src="{{row.hospital.img | image : 'hospitals'}}" class="img-50 pointer" />
+                                </button>
+                            </td>
                             <td>
                                 <div *ngIf="!row.edit" (click)="edit(row, i)" class="editable">{{row.hospital.name}}</div>
                                 <input [id]="'name' + i" [hidden]="!row.edit" type="text" [(ngModel)]="row.hospital.name" class="editable_text" (keyup)="keyUp($event)" />
@@ -48,5 +64,6 @@
               </button>
             </div>
         </div>
+
     </div>
 </div>

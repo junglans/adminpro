@@ -12,24 +12,22 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 
   @ViewChild('file') file;
 
-  userImage: File;
+  image: File;
   tempImage: string;
 
 
 
-  constructor(private _uploadService: UploadService,
-              private _modalUploadService: ModalUploadService) {
+  constructor(public _uploadService: UploadService,
+              public _modalUploadService: ModalUploadService) {
 
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() {}
 
   public uploadImage() {
-      this._uploadService.upload(this.userImage, this._modalUploadService.type, this._modalUploadService.id)
+      this._uploadService.upload(this.image, this._modalUploadService.type, this._modalUploadService.id)
       .subscribe(
         (response) => {
             this._modalUploadService.publish(response);
@@ -43,7 +41,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
     );
   }
   public chooseImage(file: File) {
-    this.userImage = null;
+    this.image = null;
     if (file) {
       if (file.type.indexOf('image') < 0) {
         swal({
@@ -60,14 +58,14 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
       reader.onloadend = () => {
         this.tempImage = reader.result;
       };
-      this.userImage = file;
+      this.image = file;
     }
   }
 
   public close() {
     this._modalUploadService.id = null;
     this._modalUploadService.img = null;
-    this.userImage = null;
+    this.image = null;
     this.tempImage = null;
     this.file.nativeElement.value = null;
 
