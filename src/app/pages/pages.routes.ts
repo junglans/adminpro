@@ -10,6 +10,8 @@ import { LoginGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { HospitalComponent } from './hospital/hospital.component';
+import { DoctorsComponent } from './doctors/doctors.component';
+import { DoctorComponent } from './doctors/doctor.component';
 
 
 const pagesRoutes: Routes = [
@@ -27,6 +29,8 @@ const pagesRoutes: Routes = [
             // Mantenimientos.
             {path: 'users', canActivate: [LoginGuard], component: UsersComponent, data: {title: 'Mantenimiento de Usuarios'}},
             {path: 'hospitals', canActivate: [LoginGuard], component: HospitalComponent, data: {title: 'Mantenimiento de Hospitales'}},
+            {path: 'doctors', canActivate: [LoginGuard], component: DoctorsComponent, data: {title: 'Mantenimiento de Médicos'}},
+            {path: 'doctor/:id', canActivate: [LoginGuard], component: DoctorComponent, data: {title: 'Datos de Médico'}},
             {path: '', canActivate: [LoginGuard], redirectTo: '/dashboard', pathMatch: 'full'},
         ]
     }

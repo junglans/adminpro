@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { UploadService, SettingsService, SharedService,
          SidebarService, UserService, LoginGuard,
-         NotifierService, HospitalService } from './service.index';
+         NotifierService, HospitalService, DoctorService} from './service.index';
 import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
 import { TOPICS_PROVIDER } from './notifier/topics';
 
@@ -21,6 +21,7 @@ import { TOPICS_PROVIDER } from './notifier/topics';
               LoginGuard,
               ModalUploadService,
               NotifierService,
+              DoctorService,
               TOPICS_PROVIDER],
   declarations: []
 })

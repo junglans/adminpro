@@ -15,13 +15,15 @@ import { ChartsModule } from 'ng2-charts';
 
 // Services
 import { ServiceModule } from './services/service.module';
+import { DoctorComponent } from './pages/doctors/doctor.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DoctorComponent
   ],
   imports: [
     BrowserModule, APP_ROUTES, PagesModule, TranslateModule, FormsModule, ReactiveFormsModule,
