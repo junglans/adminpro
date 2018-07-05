@@ -75,7 +75,7 @@ export class HospitalComponent implements OnInit, OnDestroy, AfterViewChecked {
               icon: 'error'});
             },
       () => {
-        console.log('loadUsers: Fin observación');
+        console.log('load: Fin observación');
       }
     );
   }
@@ -214,7 +214,6 @@ export class HospitalComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   public keyUp(event: KeyboardEvent) {
-     
     if (event.code === 'Enter') {
       const value = event.srcElement['value'];
       if (value && value.length !== 0) {
