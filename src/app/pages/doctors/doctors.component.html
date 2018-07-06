@@ -26,7 +26,7 @@
                         <h3 class="card-title">Médicos registrados (<small>{{totalRecords}}</small>)</h3>
                     </div>
                     <div style="float: right">
-                        <button type="button" class="btn btn-rounded btn-primary" (click)="createHospital()">
+                        <button type="button" class="btn btn-rounded btn-primary" (click)="createDoctor()">
                         <i class="fa fa-plus"></i>Crear Médico
                     </button>
                     </div>
@@ -39,9 +39,27 @@
                         <th></th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let row of hospitals; let i = index">
-
-
+                        <tr *ngFor="let doctor of doctors; let i = index">
+                            <td class="w70">
+                                <button type="button" data-toggle="modal" data-target="#uploadModal" style="padding:0px;border:0px" (click)="publishHospital(row.hospital)">
+                                    <img src="{{doctor.img | image : 'doctors'}}" class="img-50 pointer" />
+                                </button>
+                            </td>
+                            <td>
+                                {{doctor.name}}
+                            </td>
+                            <td>
+                                {{doctor.hospital?.name}}
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" (click)="update(doctor)">
+                                  <i class="fa fa-save"></i>
+                                </button>
+                                <button class="btn btn-danger" (click)="delete(doctor)">
+                                  <i class="fa fa-trash-o"></i>
+                              </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <button (click)="page(-5)" class="btn btn-secondary" *ngIf="from !== 0">

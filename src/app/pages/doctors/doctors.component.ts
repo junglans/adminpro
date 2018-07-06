@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DoctorService } from '../../services/doctor/doctor.service';
+import { Doctor } from '../../models/doctor.model';
 
 @Component({
   selector: 'app-doctors',
@@ -29,11 +30,22 @@ export class DoctorsComponent implements OnInit {
     }
   }
 
+  public update(doctor: Doctor) {
+    
+  }
+
+  public delete(doctor: Doctor) {
+
+  }
+
+  public createDoctor() {
+    
+  }
   private load() {
 
     this._doctorService.loadDoctors(this.from).subscribe(
       (response) => {
-        this.doctors = new Array(response.hospitals.length);
+        this.doctors = new Array(response.doctors.length);
         let ind = 0;
         response.doctors.forEach(element => {
           this.doctors[ind++] = element;
