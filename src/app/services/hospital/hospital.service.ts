@@ -36,4 +36,9 @@ export class HospitalService extends BaseService {
     const url = SERVICE_URL + `/hospital?token=${localStorage.getItem('token')}`;
     return this.executeRequest('POST', url, hospital);
   }
+
+  public getHospital(id: string): Observable<any> {
+    const url = SERVICE_URL + `/hospital/${id}`;
+    return this.executeRequest('GET', url);
+  }
 }

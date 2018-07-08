@@ -165,7 +165,7 @@ export class HospitalComponent implements OnInit, OnDestroy, AfterViewChecked {
             accept: {text: 'Aceptar', value: true},
             catch: {text: 'Cancelar', value: false}
           }}).then((value) => {
-         if (value) {
+             if (value) {
                this._hospitalService.deleteHospital(hospital).subscribe(
                   (response) => {
                     this.page();
@@ -182,10 +182,10 @@ export class HospitalComponent implements OnInit, OnDestroy, AfterViewChecked {
                     console.log('delete: Fin observación');
                   }
                 );
-         } else {
-          swal({title: 'Operación cancelada.',
-          icon: 'info'});
-         }
+             } else {
+              swal({title: 'Operación cancelada.',
+              icon: 'info'});
+             }
         }
     );
   }
