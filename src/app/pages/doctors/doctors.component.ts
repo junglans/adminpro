@@ -28,7 +28,7 @@ export class DoctorsComponent implements OnInit {
   from: number = 0;
 
   subscription: Subscription;
-  
+
   ngOnInit() {
     this.page();
   }

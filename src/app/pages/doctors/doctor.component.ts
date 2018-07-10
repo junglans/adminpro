@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Hospital } from '../../models/hospital.model';
 import { DoctorService, HospitalService} from '../../services/service.index';
@@ -6,29 +6,35 @@ import { Doctor } from '../../models/doctor.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 import { Observable } from 'rxjs/internal/Observable';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-doctor',
   templateUrl: './doctor.component.html',
   styles: []
 })
-export class DoctorComponent implements OnInit {
+export class DoctorComponent implements OnInit, OnDestroy {
 
   doctor: Doctor;
   hospital: Hospital;
   hospitals: Hospital[] = [];
 
   paramId: string;
+  subcriptionRoute: Subscription;
+  subcriptionImg: Subscription;
+  
   constructor(private _doctorService: DoctorService,
               private _hospitalService: HospitalService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private _modalUploadService: ModalUploadService) {
+
     this.doctor = new Doctor();
     this.doctor.user = JSON.parse(localStorage.getItem('user'))._id;
     this.doctor.hospital = '';
     this.hospital = new Hospital('');
 
-    this.activatedRoute.params.subscribe(
+    this.subcriptionRoute = this.activatedRoute.params.subscribe(
       (params) => {
         this.paramId = params['id'];
         if (this.paramId !== 'new') {
@@ -36,10 +42,19 @@ export class DoctorComponent implements OnInit {
         }
       }
     );
+
+    this.subcriptionImg = this._modalUploadService.getObservable().subscribe((response) => {
+      this.doctor.img = response.user.img;
+    });
   }
 
   ngOnInit() {
     this.loadHospitals();
+  }
+
+  ngOnDestroy() {
+    this.subcriptionImg.unsubscribe();
+    this.subcriptionRoute.unsubscribe();
   }
 
   public saveDoctor(form: NgForm)  {
@@ -76,6 +91,16 @@ export class DoctorComponent implements OnInit {
   public hospitalChanged(event: any) {
     const hospitalId = event.target.value;
     this.getHospital(hospitalId);
+  }
+
+  public publishDoctor() {
+    this._modalUploadService.type = 'doctors';
+    this._modalUploadService.img = this.doctor.img;
+    this._modalUploadService.id = this.doctor._id;
+  }
+
+  public changeImage() {
+    this._modalUploadService.getObservable().subscribe()
   }
 
   private loadHospitals() {

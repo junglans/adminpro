@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card card-body">
-            <h3 class="box-title m-b-0">Médico : </h3>
+            <h3 class="box-title m-b-0">Médico : {{doctor?.name}} </h3>
             <div class="row">
                 <div class="col-sm-12 col-xs-12">
                     <form #form="ngForm" ngNativeValidate (ngSubmit)="saveDoctor(form)">
@@ -35,7 +35,9 @@
     <div class="col-md-3" *ngIf="doctor._id">
         <div class="card card-body">
             <h4 class="box-title m-b-0">Doctor</h4>
-            <img [src]="doctor.img | image: 'doctors'" class="rounded img-fluid" />
+            <button type="button" data-toggle="modal" data-target="#uploadModal" style="padding:0px;border:0px" (click)="publishDoctor()">
+                <img [src]="doctor.img | image: 'doctors'" class="rounded img-fluid" />
+            </button>
         </div>
     </div>
 </div>
