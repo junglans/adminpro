@@ -77,4 +77,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  public globalSearch(searchTerm: String) {
+    if (searchTerm && searchTerm.length !== 0) {
+       this._router.navigate(['/search', searchTerm]);
+    }
+  }
 }

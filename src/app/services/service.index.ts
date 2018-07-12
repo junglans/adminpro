@@ -1,3 +1,4 @@
+export { GlobalSearchService } from './global-search/global-search.service';
 export { DoctorService } from './doctor/doctor.service';
 export { HospitalService } from './hospital/hospital.service';
 export { UploadService } from './upload/upload.service';
@@ -7,4 +8,3 @@ export { SettingsService } from './settings/settings.service';
 export { SharedService } from './shared/shared.service';
 export { SidebarService } from './shared/sidebar.service';
 export { NotifierService } from './notifier/notifier.service';
-

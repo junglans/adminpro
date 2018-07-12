@@ -12,6 +12,7 @@ import { UsersComponent } from './users/users.component';
 import { HospitalComponent } from './hospital/hospital.component';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { DoctorComponent } from './doctors/doctor.component';
+import { GlobalSearchComponent } from './global-search/global-search.component';
 
 
 const pagesRoutes: Routes = [
@@ -26,6 +27,7 @@ const pagesRoutes: Routes = [
             {path: 'account-settings', canActivate: [LoginGuard], component: AccountSettingsComponent,  data: {title: 'Ajustes de Tema'}},
             {path: 'promises', canActivate: [LoginGuard], component: PromisesComponent,  data: {title: 'Promesas'}},
             {path: 'rxjs', canActivate: [LoginGuard], component: RxjsComponent,  data: {title: 'Rxjs'}},
+            {path: 'search/:term', canActivate: [LoginGuard], component: GlobalSearchComponent, data: {title: 'Búsqueda Global'}},
             // Mantenimientos.
             {path: 'users', canActivate: [LoginGuard], component: UsersComponent, data: {title: 'Mantenimiento de Usuarios'}},
             {path: 'hospitals', canActivate: [LoginGuard], component: HospitalComponent, data: {title: 'Mantenimiento de Hospitales'}},
