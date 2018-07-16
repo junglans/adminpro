@@ -27,6 +27,7 @@ import { HospitalComponent } from './hospital/hospital.component';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { DoctorComponent } from './doctors/doctor.component';
 import { GlobalSearchComponent } from './global-search/global-search.component';
+import { GuardsModule } from '../guards/guards.module';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,7 @@ import { GlobalSearchComponent } from './global-search/global-search.component';
     ],
     imports: [
         CommonModule, SharedModule, PAGES_ROUTES, TranslateModule,
-        FormsModule, ChartsModule, PipesModule
+        FormsModule, ChartsModule, PipesModule, GuardsModule
     ]
 })
 

@@ -18,8 +18,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   constructor(private _router: Router, private _userService: UserService,
               private _sidebarService: SidebarService) {
         this.subscription = this._userService.getSubject().subscribe(
-                  (message => {
-                     this.user = message;
+                  (user => {
+                     this.user = user;
                   })
         );
   }

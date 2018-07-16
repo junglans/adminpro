@@ -17,6 +17,7 @@ export class UserService extends BaseService {
   private subject = new Subject<any>();
   constructor(public http: HttpClient, private _uploadService: UploadService) { 
     super(http);
+    console.log('UserService creado');
   }
 
   public getSubject(): Observable<any> {
@@ -83,6 +84,7 @@ export class UserService extends BaseService {
 
     localStorage.removeItem('id');
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
 
     const remember: boolean = JSON.parse(localStorage.getItem('remember')) || false;
     if (!remember) {

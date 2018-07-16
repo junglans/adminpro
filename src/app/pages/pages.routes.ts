@@ -6,13 +6,14 @@ import { Graficas1Component } from './graficas1/graficas1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
-import { LoginGuard } from '../services/service.index';
+import { LoginGuard } from '../guards/login.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { HospitalComponent } from './hospital/hospital.component';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { DoctorComponent } from './doctors/doctor.component';
 import { GlobalSearchComponent } from './global-search/global-search.component';
+import { AdminGuard } from '../guards/admin.guard';
 
 
 const pagesRoutes: Routes = [
@@ -20,20 +21,22 @@ const pagesRoutes: Routes = [
         path: '', component: PagesComponent,
         canActivate: [LoginGuard],
         children: [
-            {path: 'profile', canActivate: [LoginGuard], component: ProfileComponent, data: {title: 'User Profile'}},
-            {path: 'dashboard', canActivate: [LoginGuard], component: DashboardComponent, data: {title: 'Dashboard'}},
-            {path: 'progress', canActivate: [LoginGuard], component: ProgressComponent,  data: {title: 'ProgressBars'}},
-            {path: 'graficas1', canActivate: [LoginGuard], component: Graficas1Component,  data: {title: 'Gráficas'}},
-            {path: 'account-settings', canActivate: [LoginGuard], component: AccountSettingsComponent,  data: {title: 'Ajustes de Tema'}},
-            {path: 'promises', canActivate: [LoginGuard], component: PromisesComponent,  data: {title: 'Promesas'}},
-            {path: 'rxjs', canActivate: [LoginGuard], component: RxjsComponent,  data: {title: 'Rxjs'}},
-            {path: 'search/:term', canActivate: [LoginGuard], component: GlobalSearchComponent, data: {title: 'Búsqueda Global'}},
+            {path: 'profile', component: ProfileComponent, data: {title: 'User Profile'}},
+            {path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard'}},
+            {path: 'progress',  component: ProgressComponent,  data: {title: 'ProgressBars'}},
+            {path: 'graficas1', component: Graficas1Component,  data: {title: 'Gráficas'}},
+            {path: 'account-settings', component: AccountSettingsComponent,  data: {title: 'Ajustes de Tema'}},
+            {path: 'promises', component: PromisesComponent,  data: {title: 'Promesas'}},
+            {path: 'rxjs', component: RxjsComponent,  data: {title: 'Rxjs'}},
+            {path: 'search/:term', component: GlobalSearchComponent, data: {title: 'Búsqueda Global'}},
             // Mantenimientos.
-            {path: 'users', canActivate: [LoginGuard], component: UsersComponent, data: {title: 'Mantenimiento de Usuarios'}},
-            {path: 'hospitals', canActivate: [LoginGuard], component: HospitalComponent, data: {title: 'Mantenimiento de Hospitales'}},
-            {path: 'doctors', canActivate: [LoginGuard], component: DoctorsComponent, data: {title: 'Mantenimiento de Médicos'}},
-            {path: 'doctor/:id', canActivate: [LoginGuard], component: DoctorComponent, data: {title: 'Datos de Médico'}},
-            {path: '', canActivate: [LoginGuard], redirectTo: '/dashboard', pathMatch: 'full'},
+            {path: 'users', canActivate: [AdminGuard], component: UsersComponent, data: {title: 'Mantenimiento de Usuarios'}},
+            {path: 'hospitals', canActivate: [AdminGuard], component: HospitalComponent,
+            data: {title: 'Mantenimiento de Hospitales'}},
+            {path: 'doctors', canActivate: [AdminGuard], component: DoctorsComponent,
+            data: {title: 'Mantenimiento de Médicos'}},
+            {path: 'doctor/:id', canActivate: [AdminGuard], component: DoctorComponent, data: {title: 'Datos de Médico'}},
+            {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         ]
     }
 ];

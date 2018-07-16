@@ -106,6 +106,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', JSON.stringify(response.user));
         localStorage.setItem('remember', JSON.stringify(this.remember));
+        localStorage.setItem('menu', JSON.stringify(response.menu));
 
   }
 }

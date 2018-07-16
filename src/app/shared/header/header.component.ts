@@ -18,12 +18,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private _router: Router,
               private _userService: UserService,
               private _notifierService: NotifierService) {
+    // Se suscribe a los cambios de usuario.            
     this.subscription = this._userService.getSubject().subscribe(
-      (message => {
-         this.user = message;
+      (user => {
+         this.user = user;
       })
     );
-
+     // Esto son pruebas del servicio de notificación...
     this.userSubscription = this._notifierService.subscribeOn(USERS_TOPIC).subscribe(
       (observable) => {
         console.log('SUBCRICION CORRECTA :', observable);
@@ -62,6 +63,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       (response: boolean) => {
         if (response) {
             this._router.navigate(['/login']);
+            // Esto son pruebas del servicio de notificación...
             this._notifierService.publishOn(USERS_TOPIC, new User('Juan', 'jfjimenezp', '')).subscribe(
               (resp) => {
                 console.log('PUBLICACION CORRECTA :', resp);

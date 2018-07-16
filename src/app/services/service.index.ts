@@ -2,7 +2,6 @@ export { GlobalSearchService } from './global-search/global-search.service';
 export { DoctorService } from './doctor/doctor.service';
 export { HospitalService } from './hospital/hospital.service';
 export { UploadService } from './upload/upload.service';
-export { LoginGuard } from './guards/login.guard';
 export { UserService } from './user/user.service';
 export { SettingsService } from './settings/settings.service';
 export { SharedService } from './shared/shared.service';
