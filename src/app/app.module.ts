@@ -15,18 +15,27 @@ import { ChartsModule } from 'ng2-charts';
 
 // Services
 import { ServiceModule } from './services/service.module';
-
-
+import { PagesComponent } from './pages/pages.component';
+import { SharedModule } from './shared/shared.module';
+import { GuardsModule } from './guards/guards.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PagesComponent
   ],
   imports: [
-    BrowserModule, APP_ROUTES, PagesModule, TranslateModule, FormsModule, ReactiveFormsModule,
-     ChartsModule, ServiceModule
+    BrowserModule,
+    APP_ROUTES,
+    TranslateModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ChartsModule,
+    ServiceModule,
+    SharedModule,
+    GuardsModule
   ],
   bootstrap: [AppComponent],
   providers: []

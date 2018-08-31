@@ -1,12 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
-import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { Graficas1Component } from './graficas1/graficas1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
-import { LoginGuard } from '../guards/login.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { HospitalComponent } from './hospital/hospital.component';
@@ -15,12 +13,7 @@ import { DoctorComponent } from './doctors/doctor.component';
 import { GlobalSearchComponent } from './global-search/global-search.component';
 import { AdminGuard } from '../guards/admin.guard';
 
-
 const pagesRoutes: Routes = [
-    {
-        path: '', component: PagesComponent,
-        canActivate: [LoginGuard],
-        children: [
             {path: 'profile', component: ProfileComponent, data: {title: 'User Profile'}},
             {path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard'}},
             {path: 'progress',  component: ProgressComponent,  data: {title: 'ProgressBars'}},
@@ -36,9 +29,7 @@ const pagesRoutes: Routes = [
             {path: 'doctors', canActivate: [AdminGuard], component: DoctorsComponent,
             data: {title: 'Mantenimiento de Médicos'}},
             {path: 'doctor/:id', canActivate: [AdminGuard], component: DoctorComponent, data: {title: 'Datos de Médico'}},
-            {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
-        ]
-    }
+            {path: '', redirectTo: '/dashboard', pathMatch: 'full'}
 ];
 
 export const PAGES_ROUTES = RouterModule.forChild( pagesRoutes );
