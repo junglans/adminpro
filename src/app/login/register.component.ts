@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
        this.formGroup.value.email,
        this.formGroup.value.password
      );
-     this._userService.crearUser(user).subscribe(
+     this._userService.registrarUser(user).subscribe(
          (resp) => {
             if (resp) {
                 swal({title: 'Usuario creado!!', text: resp.user.email, icon: 'success'})

@@ -15,7 +15,7 @@ export class UserService extends BaseService {
 
   // Por medio de este observable se notifica que el usuario se ha modificado.
   private subject = new Subject<any>();
-  constructor(public http: HttpClient, private _uploadService: UploadService) { 
+  constructor(public http: HttpClient, private _uploadService: UploadService) {
     super(http);
     console.log('UserService creado');
   }
@@ -29,6 +29,10 @@ export class UserService extends BaseService {
       return this.executeRequest('POST', url, user);
   }
 
+  public registrarUser(user: User): Observable<any> {
+    const url = SERVICE_URL + '/user/register';
+    return this.executeRequest('POST', url, user);
+}
 
   public updateUser(user: User): Observable<any> {
     const token = localStorage.getItem('token');

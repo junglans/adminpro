@@ -75,6 +75,7 @@ export class LoginComponent implements OnInit {
 
         },
         (error) => {
+            this.login.password = '';
             swal({title: 'Login no válido',
                   text: error.error.errors.message,
                   icon: 'error'});
