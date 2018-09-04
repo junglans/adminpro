@@ -5,7 +5,7 @@ import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component
 import { PagesComponent } from './pages/pages.component';
 import { LoginGuard } from './guards/login.guard';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     { /*

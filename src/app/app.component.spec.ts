@@ -1,11 +1,19 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+import { TranslateService } from './translate/translate.service';
+import { TRANSLATION_PROVIDERS } from './translate/translation';
+import { appRoutes } from './app.routes';
+
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      imports: [RouterModule.forRoot( appRoutes, { useHash: true})],
+      providers: [TranslateService, TRANSLATION_PROVIDERS]
     }).compileComponents();
   }));
   it('should create the app', async(() => {
