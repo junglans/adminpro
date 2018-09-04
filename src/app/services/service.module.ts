@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { UploadService, SettingsService, SharedService,
-         SidebarService, UserService,NotifierService, HospitalService, DoctorService,
+         SidebarService, UserService, NotifierService, HospitalService, DoctorService,
          GlobalSearchService} from './service.index';
 import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
 import { TOPICS_PROVIDER } from './notifier/topics';

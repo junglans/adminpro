@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 export class SidebarComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
-  private menu: any;
+  menu: any;
   user: User;
 
   constructor(private _router: Router, private _userService: UserService,

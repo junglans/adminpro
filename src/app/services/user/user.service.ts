@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
 
 import { SERVICE_URL } from '../../config/config';
-import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, map } from 'rxjs/operators';
 import { Login } from '../../models/login.model';
 import { Subject } from 'rxjs/internal/Subject';
 import { UploadService } from '../upload/upload.service';
@@ -83,6 +82,10 @@ export class UserService extends BaseService {
     return this.executeRequest('POST', url, { token });
   }
 
+  public renewToken(token: string): Observable<boolean> {
+    const url = SERVICE_URL + `/login/renewtoken?token=${token}`;
+    return this.executeRequest('GET', url);
+  }
 
   public logout(): Observable<boolean> {
 
